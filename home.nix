@@ -10,6 +10,8 @@
   };
 
   # Programs that require configuration
+  imports = [ ./progs/alacritty.nix ];
+
   programs = {
     rofi = {
       enable = true;
@@ -48,7 +50,6 @@
 
   # Programs without additional configuration
   home.packages = with pkgs; [
-    alacritty
     dmenu
     firefox
     home-manager

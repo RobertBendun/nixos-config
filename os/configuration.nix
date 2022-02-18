@@ -111,5 +111,15 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "21.11"; # Did you read the comment?
+  
+  fonts.fonts = with pkgs; [
+    fira-code
+    fira-code-symbols
+    liberation_ttf
+    noto-fonts
+    noto-fonts-cjk
+    noto-fonts-emoji
+    ubuntu_font_family
+  ];
 }
 
