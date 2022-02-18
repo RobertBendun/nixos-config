@@ -12,6 +12,12 @@ import XMonad.Actions.WithAll (killAll)
 myTerminal = "alacritty"
 myBrowser  = "firefox"
 
+-- TODO: Missing keybindings:
+-- - PrintScr -> flameshot gui
+-- - Super + PrintScr -> flameshot full -c
+-- - Super + Escape -> Turn off computer script
+-- - Super + Display -> Monitor selection script
+-- - Super + Enter -> Open with same CWD as focused window
 myKeys :: [(String, X ())]
 myKeys =
   [ ("M-S-r", spawn "xmonad --restart")        -- Restart xmonad
@@ -28,6 +34,11 @@ myKeys =
   , ("M-d",        spawn "dmenu_run -i -p \"Run: \"") -- Run app picker
   , ("M-<Return>", spawn myTerminal)                  -- Run terminal
   , ("M-w",        spawn myBrowser)                   -- Run browser
+
+	, ("<XF86AudioMute>",        spawn "amixer set Master toggle")
+	, ("<XF86AudioLowerVolume>", spawn "amixer set Master 5%- unmute")
+	, ("<XF86AudioRaiseVolume>", spawn "amixer set Master 5%+ unmute")
+	, ("<XF86AudioMicMute>",     spawn "pactl set-source-mute @DEFAULT_SOURCE@ toggle")
   ]
 
 main :: IO ()
