@@ -19,8 +19,10 @@
     neovim = {
       enable = true;
       vimAlias = true;
+      extraConfig = builtins.readFile ./config.vim;
       plugins = with pkgs.vimPlugins; [
         vim-nix
+        gruvbox
       ];
     };
 
