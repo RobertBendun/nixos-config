@@ -43,7 +43,7 @@
   services = {
     upower.enable = true;
     dbus = { enable = true; };
-    
+
     xserver = {
       enable = true;
       layout = "pl";
@@ -75,14 +75,18 @@
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.systemPackages = with pkgs; [
-    alacritty
-    git
-    vim
-    wget
-    xclip
-    zsh
-  ];
+  environment = {
+    systemPackages = with pkgs; [
+      alacritty
+      git
+      vim
+      wget
+      xclip
+      zsh
+    ];
+
+    pathsToLink = [ "/share/zsh" ];
+  };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -111,7 +115,7 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "21.11"; # Did you read the comment?
-  
+
   fonts.fonts = with pkgs; [
     fira-code
     fira-code-symbols
@@ -122,4 +126,3 @@
     ubuntu_font_family
   ];
 }
-

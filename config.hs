@@ -1,8 +1,10 @@
 import XMonad
 import XMonad.Util.EZConfig
 import XMonad.Util.Ungrab
+import XMonad.Util.Run (spawnPipe)
 
 import System.Exit (exitSuccess)
+import Control.Monad (void)
 
 import qualified XMonad.StackSet as W
 
@@ -29,7 +31,7 @@ myKeys =
   , ("M-j",   windows W.focusDown)             -- Move to the next window
   , ("M-k",   windows W.focusUp)               -- Move to the prev window
   , ("M-S-j", windows W.swapDown)              -- Swap focused with next
-  , ("M-S-k", windows W.swapUp)                -- Swap focused with prev  
+  , ("M-S-k", windows W.swapUp)                -- Swap focused with prev
 
   , ("M-d",        spawn "dmenu_run -i -p \"Run: \"") -- Run app picker
   , ("M-<Return>", spawn myTerminal)                  -- Run terminal
@@ -41,8 +43,14 @@ myKeys =
 	, ("<XF86AudioMicMute>",     spawn "pactl set-source-mute @DEFAULT_SOURCE@ toggle")
   ]
 
+-- TODO: Turn into module
+-- Inspiration: https://github.com/srid/nixos-config/tree/master/features/desktopish/xmonad/xmonad-srid
 main :: IO ()
-main = xmonad $ def 
-  { terminal = myTerminal
-  , modMask = mod4Mask
-  } `additionalKeysP` myKeys
+main = do
+	-- TODO Put logging of xmobar into logHook
+	-- https://gitlab.com/dwt1/dotfiles/-/blob/master/.xmonad/xmonad.hs#L531-535
+	void $ spawnPipe $ "xmobar $HOME/.config/nixpkgs/xmobarrc"
+	xmonad $ def
+		{ terminal = myTerminal
+		, modMask = mod4Mask
+		} `additionalKeysP` myKeys

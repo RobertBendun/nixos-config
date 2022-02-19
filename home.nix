@@ -1,11 +1,19 @@
 { config, pkgs, ... }:
 
 {
-  xdg.enable = true;
-  
-  home.sessionVariables = rec { 
+  xdg = {
+    enable = true;
+    userDirs = {
+      enable    = true;
+      desktop   = "$HOME/desktop";
+      documents = "$HOME/docs";
+      download  = "$HOME/downloads";
+    };
+  };
+
+  home.sessionVariables = rec {
     BROWSER = "firefox";
-    EDITOR = "nvim"; 
+    EDITOR = "nvim";
     VISUAL = EDITOR;
   };
 
@@ -23,8 +31,10 @@
       vimAlias = true;
       extraConfig = builtins.readFile ./config.vim;
       plugins = with pkgs.vimPlugins; [
-        vim-nix
         gruvbox
+        vim-nix
+        coc-nvim
+        haskell-vim
       ];
     };
 
@@ -45,17 +55,24 @@
       enableCompletion = true;
       enableAutosuggestions = true;
       shellAliases = import ./aliases.nix;
+      autocd = true;
+      initExtra = builtins.readFile ./init.zsh;
     };
   };
 
   # Programs without additional configuration
   home.packages = with pkgs; [
+    bear
     dmenu
     firefox
-    home-manager
-    gnumake
     gcc
-
+    ghc
+    gnumake
+    haskell-language-server
+    haskellPackages.xmobar
+    haskellPackages.xmonad
+    home-manager
+    nodejs
     xorg.libX11
   ];
 
