@@ -63,8 +63,10 @@
   # Programs without additional configuration
   home.packages = with pkgs; [
     bear
+    ccls
     dmenu
     firefox
+    fmt
     gcc
     ghc
     gnumake
@@ -72,7 +74,11 @@
     haskellPackages.xmobar
     haskellPackages.xmonad
     home-manager
+    mypy
     nodejs
+    python.pkgs.pip
+    python.pkgs.pylint
+    python38
     xorg.libX11
   ];
 
